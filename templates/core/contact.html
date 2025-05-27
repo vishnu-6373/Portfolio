@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}Contact - Portfolio{% endblock %}
+
+{% block content %}
+<section class="contact-header bg-dark text-white py-5 mb-5">
+    <div class="container text-center">
+        <h1 class="display-4">Get in Touch</h1>
+        <p class="lead">Have a question or want to work together?</p>
+    </div>
+</section>
+
+<section class="contact-content py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="row g-4">
+                    <!-- Contact Information -->
+                    <div class="col-md-5">
+                        <div class="contact-info">
+                            <h3 class="mb-4">Contact Information</h3>
+                            {% if profile %}
+                            <div class="mb-4">
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="fas fa-envelope fa-fw text-primary me-2"></i>
+                                    <a href="mailto:{{ profile.email }}" class="text-decoration-none text-dark">
+                                        {{ profile.email }}
+                                    </a>
+                                </div>
+                                {% if profile.github %}
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="fab fa-github fa-fw text-primary me-2"></i>
+                                    <a href="{{ profile.github }}" class="text-decoration-none text-dark" target="_blank">
+                                        GitHub Profile
+                                    </a>
+                                </div>
+                                {% endif %}
+                                {% if profile.linkedin %}
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="fab fa-linkedin fa-fw text-primary me-2"></i>
+                                    <a href="{{ profile.linkedin }}" class="text-decoration-none text-dark" target="_blank">
+                                        LinkedIn Profile
+                                    </a>
+                                </div>
+                                {% endif %}
+                                {% if profile.twitter %}
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="fab fa-twitter fa-fw text-primary me-2"></i>
+                                    <a href="{{ profile.twitter }}" class="text-decoration-none text-dark" target="_blank">
+                                        Twitter Profile
+                                    </a>
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% endif %}
+                            
+                            <div class="availability-info p-4 bg-light rounded">
+                                <h4 class="h5 mb-3">Current Availability</h4>
+                                <p class="mb-0">
+                                    <i class="fas fa-clock text-primary me-2"></i>
+                                    Open for Python development opportunities
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div class="col-md-7">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h3 class="card-title mb-4">Send a Message</h3>
+                                <form method="post">
+                                    {% csrf_token %}
+                                    {{ form|crispy }}
+                                    <button type="submit" class="btn btn-primary w-100">
+                                        <i class="fas fa-paper-plane me-2"></i>Send Message
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Frequently Asked Questions</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="accordion" id="faqAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                What type of projects do you work on?
+                            </button>
+                        </h2>
+                        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                I specialize in Python web development, focusing on building responsive and user-friendly websites and web applications. I work with modern technologies like Django and PostgreSQL to create robust backend systems and interactive frontends. Additionally, I’m involved in AI-related projects, where I integrate features like data analysis, automation, and smart decision-making into applications to enhance functionality and user experience..
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                How quickly do you respond to messages?
+                            </button>
+                        </h2>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                I typically respond to messages within 24 hours during business days. For urgent matters, please indicate this in your message.
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                Do you work remotely?
+                            </button>
+                        </h2>
+                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Yes, I work remotely and  I will collaborating with teams across different time zones. I use various tools to ensure effective communication.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.contact-header {
+    padding-top: 7rem;
+}
+.contact-info .fas,
+.contact-info .fab {
+    width: 24px;
+}
+.availability-info {
+    border-left: 4px solid var(--bs-primary);
+}
+.accordion-button:not(.collapsed) {
+    background-color: var(--bs-primary);
+    color: white;
+}
+.card {
+    transition: transform 0.3s;
+}
+.card:hover {
+    transform: translateY(-5px);
+}
+</style>
+{% endblock %}
