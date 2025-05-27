@@ -98,12 +98,12 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Ensure Whitenoise middleware is first
-if 'whitenoise.middleware.WhiteNoiseMiddleware' in MIDDLEWARE:
-    MIDDLEWARE.remove('whitenoise.middleware.WhiteNoiseMiddleware')
-MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+# Simplified static file serving
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+
+# Remove any duplicate middleware entries
+MIDDLEWARE = list(dict.fromkeys(MIDDLEWARE))
 
 # Media files (Uploaded files)
 MEDIA_URL = '/media/'
