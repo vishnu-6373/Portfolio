@@ -61,3 +61,4 @@ media/resumes/*
 !media/projects/.gitkeep
 !media/profile/.gitkeep
 !media/resumes/.gitkeep
+.vercel
