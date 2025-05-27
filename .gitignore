@@ -1,6 +1,7 @@
 # Python
 __pycache__/
 *.py[cod]
+*$py.class
 *.so
 .Python
 env/
@@ -27,38 +28,20 @@ ENV/
 *.log
 local_settings.py
 db.sqlite3
-db.sqlite3-journal
 media/
+
+# Vercel
+.vercel
+.now
+
+# Static files
 staticfiles/
 
-# Environment Variables
+# Environment variables
 .env
 
 # IDE
-.idea/
 .vscode/
+.idea/
 *.swp
 *.swo
-*~
-
-# macOS
-.DS_Store
-.AppleDouble
-.LSOverride
-Icon
-._*
-
-# Windows
-Thumbs.db
-ehthumbs.db
-Desktop.ini
-$RECYCLE.BIN/
-
-# Project specific
-media/projects/*
-media/profile/*
-media/resumes/*
-!media/projects/.gitkeep
-!media/profile/.gitkeep
-!media/resumes/.gitkeep
-.vercel
