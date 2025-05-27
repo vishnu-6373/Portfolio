@@ -45,3 +45,6 @@ staticfiles/
 .idea/
 *.swp
 *.swo
+
+# Local Netlify folder
+.netlify
