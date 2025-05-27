@@ -1,23 +1,21 @@
 [build]
-  base = "."
-  command = "pip install -r requirements.txt && python manage.py collectstatic --noinput"
   publish = "staticfiles"
-  functions = "netlify/functions"
+  command = """
+    pip install --upgrade pip &&
+    pip install -r requirements.txt &&
+    python manage.py makemigrations &&
+    python manage.py migrate &&
+    python manage.py collectstatic --noinput
+  """
 
 [build.environment]
-  PYTHON_VERSION = "3.9"
+  PYTHON_VERSION = "3.8.12"
+  DJANGO_SETTINGS_MODULE = "portfolio.settings"
 
-[[redirects]]
-  from = "/static/*"
-  to = "/static/:splat"
-  status = 200
+[[plugins]]
+  package = "@netlify/plugin-django"
 
 [[redirects]]
   from = "/*"
-  to = "/.netlify/functions/wsgi/:splat"
+  to = "/.netlify/functions/django"
   status = 200
-  force = true
-
-[functions]
-  external_node_modules = ["@netlify/functions"]
-  directory = "netlify/functions"
