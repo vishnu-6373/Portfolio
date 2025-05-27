@@ -99,11 +99,17 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
-# Simplified static file serving
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+# Static file serving with WhiteNoise
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Remove any duplicate middleware entries
-MIDDLEWARE = list(dict.fromkeys(MIDDLEWARE))
+# Middleware for static files
+if os.getenv('DEBUG', 'False').lower() != 'true':
+    if 'whitenoise.middleware.WhiteNoiseMiddleware' not in MIDDLEWARE:
+        MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+
+# Security settings for production
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = False  # Handled by Netlify
 
 # Media files (Uploaded files)
 MEDIA_URL = '/media/'
