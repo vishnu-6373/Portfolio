@@ -27,14 +27,12 @@ ENV/
 # Django
 *.log
 local_settings.py
-media/
+
 
 # Vercel
 .vercel
 .now
 
-# Static files
-staticfiles/
 
 # Environment variables
 .env
