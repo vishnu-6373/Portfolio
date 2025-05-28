@@ -29,9 +29,6 @@ ENV/
 local_settings.py
 
 
-# Vercel
-.vercel
-.now
 
 
 # Environment variables
