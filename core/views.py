@@ -6,8 +6,17 @@ from .models import Project, Resume, Profile
 from .forms import ContactForm, ResumeForm
 
 def home(request):
-    profile = Profile.objects.first()
-    projects = Project.objects.all()[:3]  # Get latest 3 projects
+    try:
+        profile = Profile.objects.first()
+    except:
+        # If database table doesn't exist or any other error
+        profile = None
+    
+    try:
+        projects = Project.objects.all()[:3]  # Get latest 3 projects
+    except:
+        projects = []
+    
     context = {
         'profile': profile,
         'projects': projects,
@@ -15,7 +24,10 @@ def home(request):
     return render(request, 'core/home.html', context)
 
 def projects(request):
-    projects = Project.objects.all()
+    try:
+        projects = Project.objects.all()
+    except:
+        projects = []
     context = {
         'projects': projects,
         'title': 'Projects'
@@ -82,7 +94,10 @@ def contact(request):
     else:
         form = ContactForm()
     
-    profile = Profile.objects.first()
+    try:
+        profile = Profile.objects.first()
+    except:
+        profile = None
     context = {
         'form': form,
         'profile': profile,
